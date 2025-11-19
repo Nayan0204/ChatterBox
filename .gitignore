@@ -1,0 +1,21 @@
+# Backend
+/Backend/node_modules
+/Backend/.env
+/Backend/dist
+
+# Frontend
+/Frontend/node_modules
+/Frontend/.env
+/Frontend/dist
+
+# OS / Editor
+.DS_Store
+.vscode/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional SSL / Keys
+*.pem
