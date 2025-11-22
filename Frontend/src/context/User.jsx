@@ -1,3 +1,4 @@
+
 import {  createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
@@ -7,6 +8,7 @@ const AuthContext = createContext();
         user: null,
         token: "",
     });
+    const[loading , setLoading] = useState(true);
 
     useEffect(() => {
         const data = localStorage.getItem("auth")
@@ -14,7 +16,6 @@ const AuthContext = createContext();
             try {
                 const parseData = JSON.parse(data);
                 setAuth({
-                    ...auth,
                     user: parseData.user,
                     token: parseData.token,
                 })
@@ -26,10 +27,12 @@ const AuthContext = createContext();
         else {
             console.log("No auth data found in localStorage");
         }
-    })
+
+        setLoading(false);
+    },[]);
 
     return (
-        <AuthContext.Provider value = {[auth, setAuth]}>
+        <AuthContext.Provider value = {[auth, setAuth , loading, setLoading]}>
             {children}
         </AuthContext.Provider>
     )
