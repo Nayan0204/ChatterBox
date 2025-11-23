@@ -1,75 +1,69 @@
 import { useState } from "react";
-import { FaUserCircle, FaBell, FaCog, FaUsers } from "react-icons/fa";
+import { FaBell, FaCog, FaUsers } from "react-icons/fa";
+import UserProfile from "./userProfile";
+import { useAuth } from "../context/User";
 
 export default function NavBar() {
-  const [profileOpen, setProfileOpen] = useState(false);
-  const [notificationsOpen, setNotificationsOpen] = useState(false);
+    const [profileOpen, setProfileOpen] = useState(false);
+    const [notificationsOpen, setNotificationsOpen] = useState(false);
+    const [auth] = useAuth();
 
-  return (
-    <div className="flex flex-row md:flex-col items-center md:items-center bg-gray-800 text-gray-100 w-full md:w-16 p-2 border-b md:border-b-0 md:border-r border-gray-700">
-      
-      {/* User Profile */}
-      <div className="relative">
-        <button
-          onClick={() => setProfileOpen(!profileOpen)}
-          className="text-3xl hover:text-indigo-400 transition-colors duration-200"
-        >
-          <FaUserCircle />
-        </button>
-        {profileOpen && (
-          <div className="absolute left-16 top-0 w-48 bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-2 z-50">
-            <button className="w-full text-left px-2 py-1 hover:bg-gray-700 rounded">
-              Edit Profile
-            </button>
-            <button className="w-full text-left px-2 py-1 hover:bg-gray-700 rounded">
-              Change Bio
-            </button>
-            <button className="w-full text-left px-2 py-1 hover:bg-gray-700 rounded">
-              Logout
-            </button>
-          </div>
-        )}
-      </div>
+    return (
+        <div className="flex flex-row md:flex-col items-center md:items-center bg-gray-800 text-gray-100 w-full md:w-16 p-2 border-b pt-5 md:border-b-0 md:border-r border-gray-700 space-y-8">
 
-      {/* Notifications */}
-      <div className="relative mt-4">
-        <button
-          onClick={() => setNotificationsOpen(!notificationsOpen)}
-          className="text-2xl hover:text-indigo-400 transition-colors duration-200"
-        >
-          <FaBell />
-        </button>
-        {notificationsOpen && (
-          <div className="absolute left-16 top-0 w-56 bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-2 z-50">
-            <p className="text-gray-300 font-semibold mb-2">Friend Requests</p>
-            <div className="flex flex-col space-y-2">
-              <div className="flex justify-between items-center px-2 py-1 hover:bg-gray-700 rounded">
-                <span>Nayan Chaurasia</span>
-                <button className="text-indigo-400 px-2 py-0.5 rounded hover:bg-gray-700">Accept</button>
-              </div>
-              <div className="flex justify-between items-center px-2 py-1 hover:bg-gray-700 rounded">
-                <span>John Doe</span>
-                <button className="text-indigo-400 px-2 py-0.5 rounded hover:bg-gray-700">Accept</button>
-              </div>
+            <div className="relative">
+                <button
+                    onClick={() => setProfileOpen(!profileOpen)}
+                    className="text-3xl hover:text-indigo-400 transition-colors duration-200"
+                >
+                    {auth?.user?.profilePic && auth.user.profilePic.trim() !== "" ?
+                        <img src={auth.user.profilePic} className="w-10 h-10 rounded-full object-cover border border-gray-700 cursor-pointer" /> :
+                        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" className="w-10 h-10 rounded-full object-cover border border-gray-700 cursor-pointer" />
+                    }
+                </button>
+                {profileOpen && (
+                    <UserProfile onClose={() => setProfileOpen(false)} />
+                )}
             </div>
-          </div>
-        )}
-      </div>
 
-      {/* Settings */}
-      <div className="mt-4">
-        <button className="text-2xl hover:text-indigo-400 transition-colors duration-200">
-          <FaCog />
-        </button>
-      </div>
+            <div className="relative mt-4">
+                <button
+                    onClick={() => setNotificationsOpen(!notificationsOpen)}
+                    className="text-2xl hover:text-indigo-400 transition-colors duration-200"
+                >
+                    <FaBell />
+                </button>
+                {notificationsOpen && (
+                    <div className="absolute left-16 top-0 w-56 bg-gray-900 border border-gray-700 rounded-lg shadow-lg p-2 z-50">
+                        <p className="text-gray-300 font-semibold mb-2">Friend Requests</p>
+                        <div className="flex flex-col space-y-2">
+                            <div className="flex justify-between items-center px-2 py-1 hover:bg-gray-700 rounded">
+                                <span>Nayan Chaurasia</span>
+                                <button className="text-indigo-400 px-2 py-0.5 rounded hover:bg-gray-700">Accept</button>
+                            </div>
+                            <div className="flex justify-between items-center px-2 py-1 hover:bg-gray-700 rounded">
+                                <span>John Doe</span>
+                                <button className="text-indigo-400 px-2 py-0.5 rounded hover:bg-gray-700">Accept</button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
 
-      {/* Group Chats */}
-      <div className="mt-4">
-        <button className="text-2xl hover:text-indigo-400 transition-colors duration-200">
-          <FaUsers />
-        </button>
-      </div>
 
-    </div>
-  );
+            <div className="mt-4">
+                <button className="text-2xl hover:text-indigo-400 transition-colors duration-200">
+                    <FaCog />
+                </button>
+            </div>
+
+
+            <div className="mt-4">
+                <button className="text-2xl hover:text-indigo-400 transition-colors duration-200">
+                    <FaUsers />
+                </button>
+            </div>
+
+        </div>
+    );
 }

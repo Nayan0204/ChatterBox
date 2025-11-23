@@ -1,11 +1,12 @@
 import express from 'express';
-import {getUserInfo, loginCont, registerCont } from '../controller/userCont.js';
 import { requiresignin } from '../middleware/auth.js';
-import updateProfileCont from '../controller/details.js';
+import  { uploadProfilePic,updateBioCont } from '../controller/details.js';
+import upload from '../middleware/multer.js';
 
 const router  = express.Router();
 
-router.put("/updateprofile", requiresignin , updateProfileCont)
+router.put("/updateprofile", requiresignin ,upload.single("image"), uploadProfilePic);
+router.put("/updateBio" , requiresignin , updateBioCont );
 
 
 

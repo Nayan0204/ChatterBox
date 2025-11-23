@@ -24,6 +24,8 @@ export default function Login() {
         token: res.data.token,
       })
 
+      console.log("login with user passed " , res.data.user);
+
       localStorage.setItem("auth", JSON.stringify({
         user: res.data.user,
         token: res.data.token,

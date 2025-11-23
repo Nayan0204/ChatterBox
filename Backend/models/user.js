@@ -22,7 +22,19 @@ const userSchema = new mongoose.Schema({
     profilePic: {
         type: String,
         default: "",
-     }
+     },
+     friends: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+     }],
+     pendingRequests: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+     }],
+     sentRequests: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+     }],
 })
 
 const User = mongoose.model("User", userSchema);

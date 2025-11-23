@@ -1,9 +1,9 @@
 import ChatPage from "../components/chat";
 import Contacts from "../components/contacts";
 import NavBar from "../components/NavBar";
-import UserProfile from "../components/userProfile";
 
 export default function Main() {
+    
     return (
         <div className="h-screen w-screen bg-gray-900 text-gray-100 flex flex-col md:flex-row">
 
@@ -16,7 +16,7 @@ export default function Main() {
             </div >
 
             <div className="w-1/5 min-w-[250px] bg-gray-800 border-r border-gray-700 overflow-y-auto">
-                <UserProfile />
+                <Contacts />
             </div>
 
             <div className="flex-1 bg-gray-900 flex flex-col">

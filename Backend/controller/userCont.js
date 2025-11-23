@@ -59,6 +59,8 @@ export const registerCont = async (req,res) => {
                     id: user._id,
                     name: user.name,
                     email: user.email,
+                    bio: user.bio,
+                    profilePic: user.profilePic,
                 }
             })
         }
