@@ -9,6 +9,8 @@ import { Server } from "socket.io";
 import socketAuth from "./socket/socketAuth.js";
 import { messageCont } from "./socket/messageCont.js";
 import { userCont } from "./socket/userCont.js";
+import chatRoutes from "./routes/userChats.js";
+
 
 dotenv.config();
 
@@ -45,6 +47,8 @@ io.on("connection", (socket) => {
 
 app.use("/auth/api", authRoutes)
 app.use("/user" , detailsRoute)
+
+app.use("/chat" , chatRoutes)
 
 app.get("/", (req,res)=> {
     res.send("Server is running");

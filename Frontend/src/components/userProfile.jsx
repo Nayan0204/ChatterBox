@@ -33,6 +33,7 @@ export default function UserProfileModal({ onClose }) {
 
         <h2 className="text-xl font-semibold text-gray-100 text-center mb-6">
           User Settings
+          {auth.user.name}
         </h2>
 
         <div className="flex flex-col gap-3">

@@ -1,5 +1,6 @@
 
 import {  createContext, useContext, useEffect, useState } from "react";
+import { connectSocket } from "../socket";
 
 const AuthContext = createContext();
 
@@ -30,6 +31,22 @@ const AuthContext = createContext();
 
         setLoading(false);
     },[]);
+
+     useEffect(() => {
+    if (auth?.token) {
+      const s = connectSocket(auth.token);
+
+      s.on("connect", () => {
+        console.log("Socket connected:", s.id);
+      });
+
+      s.on("receive-message", (msg) => {
+        console.log("Message received:", msg);
+      });
+
+      return () => s.disconnect();
+    }
+  }, [auth?.token]);
 
     return (
         <AuthContext.Provider value = {[auth, setAuth , loading, setLoading]}>

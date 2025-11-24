@@ -4,6 +4,7 @@ import onlineUser from "./helper.js"
 export const userCont = (socket , io) => {
     const uid = socket.userId;
     const set = onlineUser.get(uid) || new Set()
+    set.add(socket.id)
     onlineUser.set(uid, set)
 
     console.log("user connected" , uid , socket.id)

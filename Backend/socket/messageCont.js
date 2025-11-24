@@ -5,6 +5,7 @@ export const messageCont = (socket , io) => {
     const uid = socket.userId;
 
     socket.on("send-message" , async (data , ack) => {
+        console.log(onlineUser)
         try {
             const message = await Message.create({
                 from: uid,
@@ -16,7 +17,7 @@ export const messageCont = (socket , io) => {
             const receiverSocket = onlineUser.get(data.to);
             if(receiverSocket){
                 for(const sid of receiverSocket){
-                    io.to(sid).emit("recieve-message" ,message);
+                    io.to(sid).emit("receive-message" ,message);
                 }
             }
             if(ack){
