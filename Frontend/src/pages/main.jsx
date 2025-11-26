@@ -10,41 +10,44 @@ export default function Main() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [auth] = useAuth();
 
-  // Load contacts
   useEffect(() => {
     async function loadContacts() {
       if (!auth?.token) return;
 
       const res = await axios.get("http://localhost:5000/chat/contacts", {
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
+        headers: { Authorization: `Bearer ${auth.token}` },
       });
 
       setContacts(res.data);
     }
-
     loadContacts();
   }, [auth?.token]);
 
   return (
-    <div className="h-screen w-screen bg-gray-900 text-gray-100 flex flex-row">
+   <div className="h-screen w-screen bg-gray-950 text-gray-200 flex">
 
-      <div className="w-16 bg-gray-800 border-r border-gray-700">
-        <NavBar />
-      </div>
+  {/* Left Icon Menu */}
+  <div className="w-16 bg-gray-900 border-r border-[#1f2230]">
+    <NavBar />
+  </div>
 
-      <div className="w-1/4 min-w-[250px] bg-gray-800 border-r border-gray-700">
-        <Contacts
-          contacts={contacts}
-          selectedUser={selectedUser}
-          setSelectedUser={setSelectedUser}
-        />
-      </div>
+  {/* Contacts Sidebar */}
+  <div className="w-1/4 min-w-[250px] 
+      bg-gray-900 border-r border-[#1f2230]">
+    <Contacts
+      contacts={contacts}
+      selectedUser={selectedUser}
+      setSelectedUser={setSelectedUser}
+    />
+  </div>
 
-      <div className="flex-1">
-        <ChatPage selectedUser={selectedUser} />
-      </div>
-    </div>
+  {/* Chat Section */}
+  <div className="flex-1 bg-[#0f1117]">
+    <ChatPage selectedUser={selectedUser} />
+  </div>
+
+</div>
+
   );
 }
+

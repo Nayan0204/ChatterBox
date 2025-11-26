@@ -1,15 +1,18 @@
 import { useState } from "react";
-import { FaBell, FaCog, FaUsers } from "react-icons/fa";
+import { FaBell, FaCog, FaSearch, FaUsers } from "react-icons/fa";
 import UserProfile from "./userProfile";
 import { useAuth } from "../context/User";
+import SearchContacts from "../pages/search";
+import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
     const [profileOpen, setProfileOpen] = useState(false);
     const [notificationsOpen, setNotificationsOpen] = useState(false);
     const [auth] = useAuth();
+    const navigate = useNavigate();
 
     return (
-        <div className="flex flex-row md:flex-col items-center md:items-center bg-gray-800 text-gray-100 w-full md:w-16 p-2 border-b pt-5 md:border-b-0 md:border-r border-gray-700 space-y-8">
+        <div className="flex flex-row md:flex-col items-center md:items-center bg-gray-900 text-gray-100 w-full md:w-16 p-2 border-b pt-5 md:border-b-0 md:border-r border-gray-800 space-y-8">
 
             <div className="relative">
                 <button
@@ -24,6 +27,18 @@ export default function NavBar() {
                 {profileOpen && (
                     <UserProfile onClose={() => setProfileOpen(false)} />
                 )}
+            </div>
+
+            <div className="mt-4">
+                <button onClick={() => {navigate('/page/search')}} className="text-2xl hover:text-indigo-400 transition-colors duration-200">
+                    <FaSearch />
+                </button>
+            </div>
+
+             <div className="mt-4">
+                <button className="text-2xl hover:text-indigo-400 transition-colors duration-200">
+                    <FaUsers />
+                </button>
             </div>
 
             <div className="relative mt-4">
@@ -58,11 +73,7 @@ export default function NavBar() {
             </div>
 
 
-            <div className="mt-4">
-                <button className="text-2xl hover:text-indigo-400 transition-colors duration-200">
-                    <FaUsers />
-                </button>
-            </div>
+           
 
         </div>
     );
