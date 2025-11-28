@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/userRoutes.js";
 import detailsRoute from "./routes/userDetails.js";
@@ -12,6 +11,7 @@ import { userCont } from "./socket/userCont.js";
 import chatRoutes from "./routes/userChats.js";
 
 
+import dotenv from "dotenv";
 dotenv.config();
 
 

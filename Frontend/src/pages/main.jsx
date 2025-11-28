@@ -23,6 +23,8 @@ export default function Main() {
     loadContacts();
   }, [auth?.token]);
 
+
+
   return (
    <div className="h-screen w-screen bg-gray-950 text-gray-200 flex">
 
