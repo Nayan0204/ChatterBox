@@ -42,7 +42,6 @@ export default function Register() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-gray-800 p-6">
 
-      {/* LEFT SIDE INFO */}
       <div className="hidden md:flex flex-col w-1/2 text-gray-200 px-10">
         <h1 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
           Welcome to ChatterBox.
@@ -58,7 +57,6 @@ export default function Register() {
         </p>
       </div>
 
-      {/* FORM */}
       <div className="w-full max-w-md bg-gray-900/70 backdrop-blur-xl p-8 rounded-2xl shadow-2xl border border-gray-700">
         <h2 className="text-3xl font-bold text-center text-gray-100 mb-8">
           Sign Up
@@ -66,7 +64,6 @@ export default function Register() {
 
         <form onSubmit={handleSubmit}>
 
-          {/* NAME */}
           <div className="mb-5">
             <label className="block text-sm font-medium text-gray-300 mb-1">
               Name
@@ -81,7 +78,6 @@ export default function Register() {
             />
           </div>
 
-          {/* EMAIL */}
           <div className="mb-5">
             <label className="block text-sm font-medium text-gray-300 mb-1">
               Email
@@ -96,7 +92,6 @@ export default function Register() {
             />
           </div>
 
-          {/* PASSWORD */}
           <div className="mb-6">
             <label className="block text-sm font-medium text-gray-300 mb-1">
               Password
@@ -111,7 +106,6 @@ export default function Register() {
             />
           </div>
 
-          {/* SUBMIT BUTTON */}
           <button
             type="submit"
             className="w-full py-3 bg-indigo-600 hover:bg-indigo-500 text-white 

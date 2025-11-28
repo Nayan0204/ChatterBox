@@ -3,19 +3,51 @@ import { useAuth } from "../context/User";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useState } from "react";
 
 
 export default function UserProfileModal({ onClose }) {
   const [auth, setAuth] = useAuth();
+  const [bio, setBio] = useState(auth?.user?.bio || "");
+  const [isBioSet, setIsBioSet] = useState(false);
+  const [error ,setError] = useState("");
   const navigate = useNavigate();
   console.log(auth.user)
 
-  // const handlePic = async () => {
-  //   const res = await axios.put("http://localhost:5000/user/updateprofile" ,{
+  const handleBio = async () => {
+    if(bio.length > 20){
+      setError("should be less than 20 characters")
+      return;
+    }
+    try {
+       const res = await axios.put("http://localhost:5000/user/updateBio", {
+      bio
+    },
+      { headers: { Authorization: `Bearer ${auth.token}` } }
+    );
+    setAuth({
+      ...auth,
+      user: {...auth.user , bio}
+  })
+  localStorage.setItem("auth" , JSON.stringify({
+    ...auth,
+    user: {...auth.user , bio}
+  }))
+  setIsBioSet(false);
+    } catch (error) {
+      console.log(error)
+    }
+   
+  }
 
-  //   } )
-  // }
- 
+  const handlePic = async () => {
+    const res = await axios.put("http://localhost:5000/user/updateprofile", {
+
+
+    })
+
+  }
+
   const handleLogout = () => {
 
     setAuth({
@@ -65,19 +97,34 @@ export default function UserProfileModal({ onClose }) {
           <div className="flex justify-between w-full py-2 border-y my-2">
             <div className=" border-gray-700/50 ">
               <p className="text-gray-400 text-sm mb-1">Bio</p>
-              <p className="text-gray-200 text-base leading-relaxed">
-                {auth?.user?.bio || "No bio added yet."}
-              </p>
+              {isBioSet ?
+              <>
+                <textarea
+                  className="w-full bg-gray-800 text-gray-200 rounded-lg p-3 border border-gray-700 focus:outline-none focus:border-indigo-500"
+                  rows="2"
+                  value={bio}
+                  onChange={(e) => setBio(e.target.value)}
+                ></textarea>
+                {error &&
+                  <p className="text-red-400 text-sm">{error}</p>
+                }              
+                </>
+                : <p className="text-gray-200 text-base leading-relaxed">
+                  {bio || "No bio added yet."}
+                </p>
+              }
+
             </div>
-            <button className=" pr-4 text-gray-400 text-sm hover:text-gray-200 " onClick={handleBio}>
-              <FaPen />
-            </button>
+            {isBioSet ?
+              <button onClick={handleBio} className="mt-2  hover:text-indigo-500 p-2 rounded-lg text-white">
+                Save
+              </button> :
+              <button className=" pr-4 text-gray-400 text-sm hover:text-gray-200 " onClick={() => setIsBioSet(!isBioSet)}>
+                <FaPen />
+              </button>
+            }
           </div>
 
-
-          <button className="w-full text-left px-4 py-3 hover:bg-gray-800 rounded-lg text-gray-200">
-            Edit Profile
-          </button>
 
           <button
             onClick={handleLogout}
